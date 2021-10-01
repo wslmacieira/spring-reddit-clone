@@ -1,7 +1,7 @@
 import { AuthService } from './../shared/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignupRequestPayload } from './signup-request-payload';
+import { SignupRequestPayload } from './signup-request.payload';
 
 @Component({
   selector: 'app-signup',
