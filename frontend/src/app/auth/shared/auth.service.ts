@@ -4,13 +4,19 @@ import { SignupRequestPayload } from '../signup/signup-request.payload';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { LocalStorageService } from 'ngx-webstorage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
+  refreshTokenPayload = {
+    refreshToken: this.getRefreshToken(),
+    username: this.getUserName()
+  }
+
   constructor(private http: HttpClient, private localStorage: LocalStorageService) {}
 
   signup(signupRequestPayload: SignupRequestPayload): Observable<any> {
@@ -36,4 +42,33 @@ export class AuthService {
       })
     )
   }
+
+  getJwtToken(): string {
+    return this.localStorage.retrieve('authenticationToken');
+  }
+
+  refreshToken() {
+    return this.http.post<LoginResponse>('http://localhost:8080/api/auth/refresh/token',
+    this.refreshTokenPayload)
+    .pipe(tap(response => {
+      this.localStorage.clear('authenticationToken');
+      this.localStorage.clear('expiresAt');
+
+      this.localStorage.store('authenticationToken',
+        response.authenticationToken);
+      this.localStorage.store('expiresAt', response.expiresAt);
+    }));
+  }
+
+  getUserName() {
+    return this.localStorage.retrieve('username');
+  }
+  getRefreshToken() {
+    return this.localStorage.retrieve('refreshToken');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null;
+  }
+
 }
