@@ -13,4 +13,11 @@ export class SubredditService {
   getAllSubreddits(): Observable<Array<SubredditModel>> {
     return this.http.get<Array<SubredditModel>>('http://localhost:8080/api/subreddit')
   }
+
+  createSubreddit(subredditModel: SubredditModel): Observable<SubredditModel> {
+    debugger;
+    return this.http.post<SubredditModel>('http://localhost:8080/api/subreddit',
+      subredditModel);
+  }
+
 }

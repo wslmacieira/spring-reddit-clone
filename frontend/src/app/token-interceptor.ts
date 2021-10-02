@@ -54,8 +54,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
   addToken(req: HttpRequest<any>, jwtToken: string) {
     return req.clone({
-      headers: req.headers.set('Authorization',
-      'Bearer ' + jwtToken)
-    })
+      setHeaders: { Authorization: 'Bearer ' + jwtToken }
+    });
   }
 }
