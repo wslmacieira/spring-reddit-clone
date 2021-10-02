@@ -3,7 +3,9 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { BehaviorSubject, Observable, throwError } from "rxjs";
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { LoginResponse } from './auth/login/login-response.payload';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
   isTokenRefreshing = false;
