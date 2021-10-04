@@ -8,6 +8,9 @@ import { CreatePostPayload } from '../post/create-post/create-post.payload';
   providedIn: 'root'
 })
 export class PostService {
+  getPost(postId: number): Observable<PostModel> {
+    return this.http.get<PostModel>('http://localhost:8080/api/posts/' + postId)
+  }
 
   constructor(private http: HttpClient) { }
 

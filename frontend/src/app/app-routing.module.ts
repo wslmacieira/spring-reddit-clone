@@ -1,3 +1,4 @@
+import { ViewPostComponent } from './post/view-post/view-post.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'create-post', component: CreatePostComponent },
   { path: 'create-subreddit', component: CreateSubredditComponent },
   { path: 'list-subreddits', component: ListSubredditsComponent },
+  { path: 'view-post/:id', component: ViewPostComponent}
 ];
 
 @NgModule({
